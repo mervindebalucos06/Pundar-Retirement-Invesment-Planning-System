@@ -1,11 +1,20 @@
 public class RetirementPlan {
-  private User user;
-  private Investment investment;
+  private final User user;
+  private final Investment investment;
 
   public RetirementPlan(User user, Investment investment) {
     this.user = user;
     this.investment = investment;
   }
 
-  public double calculateProjectedSavings
+  public double calculateProjectedSavings() {
+    int yearsToRetirement = user.getRetirementAge() - user.getAge();
+    double futureValue = user.getCurrentSavings();
+
+    for (int i = 0; i < yearsToRetirement; i++) {
+      futureValue += user.annualContributions();
+      futureValue = investment.CalculateReturns(futureValue, 1);
+    }
+    return futureValue;
+  }
 }

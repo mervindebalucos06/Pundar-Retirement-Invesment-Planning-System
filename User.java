@@ -1,8 +1,8 @@
 public class User {
   private String name;
-  private int age;
-  private double currentSavings;
-  private int retirementAge;
+  private final int age;
+  private final double currentSavings;
+  private final int retirementAge;
   private double annualContribution;
 
   public User(String name, int age, double currentSavings, int retirementAge, double annualContribution) {
@@ -12,4 +12,33 @@ public class User {
     this.retirementAge = retirementAge;
     this.annualContribution = annualContribution;
   }
+
+  public int getAge() {
+    return age;
+  }
+  
+  public int getRetirementAge() {
+    return retirementAge;
+  }
+  
+  public double getCurrentSavings() {
+    return currentSavings;
+  }
+
+  public double annualContributions() {
+    return annualContribution;
+  }
+
+  public void annualContributions(double annualContribution) {
+    if (annualContribution >= 0) {
+      this.annualContribution = annualContribution;
+    } else {
+      System.out.println("Annual contribution cannot be negative.");
+    }
+  }
+  
+  
+
+
+  //getter and setter
 }
