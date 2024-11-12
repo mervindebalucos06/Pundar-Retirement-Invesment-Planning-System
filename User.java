@@ -1,16 +1,22 @@
 public class User {
-  private String name;
-  private int age;
+  private final int userId;
+  private final String name;
+  private final int age;
   private double currentSavings;
   private int retirementAge;
   private double annualContribution;
 
-  public User(String name, int age, double currentSavings, int retirementAge, double annualContribution) {
+  public User(int userId, String name, int age, double currentSavings, int retirementAge, double annualContribution) {
+    this.userId = userId;
     this.name = name;
     this.age = age;
     this.currentSavings = currentSavings;
     this.retirementAge = retirementAge;
     this.annualContribution = annualContribution;
+  }
+
+  public int getUserId() {
+    return userId;
   }
 
   public void setRetirementAge(int retirementAge) {
@@ -54,7 +60,17 @@ public class User {
     }
   }
   
-  
+  public double calculateProjectedIncome(double annualGrowthRate) {
+    int yearsUntilRetirement = retirementAge - age;
+    double projectedSavings = currentSavings;
+
+    for (int i = 0; i < yearsUntilRetirement; i++) {
+      projectedSavings += projectedSavings * annualGrowthRate; // Apply growth
+      projectedSavings += annualContribution; // Add annual contribution
+    }
+
+    return projectedSavings;
+  }
 
 
   //getter and setter
