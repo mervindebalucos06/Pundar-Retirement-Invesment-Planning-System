@@ -9,10 +9,11 @@ public class RetirementPlan {
 
   public double calculateProjectedSavings() {
     int yearsToRetirement = user.getRetirementAge() - user.getAge();
+
     double futureValue = user.getCurrentSavings();
 
     for (int i = 0; i < yearsToRetirement; i++) {
-      futureValue += user.annualContributions();
+      futureValue += user.getAnnualContribution();
       futureValue = investment.CalculateReturns(futureValue, 1);
     }
     return futureValue;

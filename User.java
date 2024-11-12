@@ -1,8 +1,8 @@
 public class User {
   private String name;
-  private final int age;
-  private final double currentSavings;
-  private final int retirementAge;
+  private int age;
+  private double currentSavings;
+  private int retirementAge;
   private double annualContribution;
 
   public User(String name, int age, double currentSavings, int retirementAge, double annualContribution) {
@@ -13,8 +13,25 @@ public class User {
     this.annualContribution = annualContribution;
   }
 
+  public void setRetirementAge(int retirementAge) {
+    this.retirementAge = retirementAge;
+  }
+
+  public void setAnnualContribution(double annualContribution) {
+    this.annualContribution = annualContribution;
+  }
+
+
+  public void setCurrentSavings(double currentSavings) {
+    this.currentSavings = currentSavings;
+  }
+
   public int getAge() {
     return age;
+  }
+
+  public String getName() {
+    return name;
   }
   
   public int getRetirementAge() {
@@ -25,7 +42,7 @@ public class User {
     return currentSavings;
   }
 
-  public double annualContributions() {
+  public double getAnnualContribution() {
     return annualContribution;
   }
 
