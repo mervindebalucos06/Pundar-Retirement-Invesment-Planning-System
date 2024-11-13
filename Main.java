@@ -77,9 +77,8 @@ public class Main {
     while (!exit) {
       System.out.println("\n=== Your Retirement Plan ===");
       System.out.println("1. View Retirement Details");
-      System.out.println("2. View Projected Income at Retirement");
-      System.out.println("3. Update Retirement Plan");
-      System.out.println("4. Logout");
+      System.out.println("2. Update Retirement Plan");
+      System.out.println("3. Logout");
       System.out.print("Choose an option: ");
 
       int choice = input.nextInt();
@@ -87,9 +86,8 @@ public class Main {
 
       switch (choice) {
         case 1 -> viewRetirementDetails(user);
-        case 2 -> viewProjectedIncome(user);
-        case 3 -> updateRetirementPlan(user);
-        case 4 -> {
+        case 2 -> updateRetirementPlan(user);
+        case 3 -> {
           System.out.println("Logging out...");
           exit = true;
         }
@@ -105,9 +103,6 @@ public class Main {
     System.out.println("Current Savings: $" + user.getCurrentSavings());
     System.out.println("Retirement Age: " + user.getRetirementAge());
     System.out.println("Annual Contribution: $" + user.getAnnualContribution());
-  }
-
-  private static void viewProjectedIncome(User user) {
     double annualGrowthRate = 0.05; // Example growth rate of 5%
     double projectedIncome = user.calculateProjectedIncome(annualGrowthRate);
     System.out.printf("\nProjected Income at Retirement: $%.2f\n", projectedIncome);
