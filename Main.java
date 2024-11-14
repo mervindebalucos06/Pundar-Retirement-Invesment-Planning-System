@@ -52,7 +52,7 @@ public class Main {
     double contribution = input.nextDouble();
     input.nextLine(); // Consume newline
 
-    User newUser = new User(userIdCounter, name, age, savings, retirementAge, contribution);
+    User newUser = new User(userIdCounter, name, age, investmentType, savings, retirementAge, contribution);
     userDatabase.put(userIdCounter, newUser); // Store user in the database
 
     System.out.println("Sign Up successful! Your user ID is " + userIdCounter + ". You can now log in.");
@@ -103,6 +103,7 @@ public class Main {
     System.out.println("\n=== Retirement Details ===");
     System.out.println("Name: " + user.getName());
     System.out.println("Age: " + user.getAge());
+    System.out.println("Investment Type: " + user.getInvestmentType());
     System.out.println("Current Savings: $" + user.getCurrentSavings());
     System.out.println("Retirement Age: " + user.getRetirementAge());
     System.out.println("Annual Contribution: $" + user.getAnnualContribution());

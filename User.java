@@ -2,20 +2,26 @@ public class User {
   private final int userId;
   private final String name;
   private final int age;
+  private final String investmentType;
   private double currentSavings;
   private int retirementAge;
   private double annualContribution;
 
-  public User(int userId, String name, int age, double currentSavings, int retirementAge, double annualContribution) {
+  public User(int userId, String name, int age,String investmentType, double currentSavings, int retirementAge, double annualContribution) {
     this.userId = userId;
     this.name = name;
     this.age = age;
+    this.investmentType = investmentType;
     this.currentSavings = currentSavings;
     this.retirementAge = retirementAge;
     this.annualContribution = annualContribution;
   }
 
   //getter and setter
+
+  public String getInvestmentType() {
+    return investmentType;
+  }
 
   public int getUserId() {
     return userId;
