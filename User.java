@@ -15,6 +15,8 @@ public class User {
     this.annualContribution = annualContribution;
   }
 
+  //getter and setter
+
   public int getUserId() {
     return userId;
   }
@@ -71,8 +73,5 @@ public class User {
 
     return projectedSavings;
   }
-
-
-  //getter and setter
 }
 

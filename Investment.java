@@ -23,8 +23,5 @@ public class Investment {
   public void setType(String type) {
     this.type = type;
   }
-
-  //getter and setter
-  
 }
 
