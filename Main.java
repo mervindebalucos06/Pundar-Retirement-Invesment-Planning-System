@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -41,6 +42,8 @@ public class Main {
     String name = input.nextLine();
     System.out.print("Enter your age: ");
     int age = input.nextInt();
+    System.out.println("Enter your investment type: ");
+    String investmentType = input.nextLine();
     System.out.print("Enter your current savings: ");
     double savings = input.nextDouble();
     System.out.print("Enter your retirement age: ");
