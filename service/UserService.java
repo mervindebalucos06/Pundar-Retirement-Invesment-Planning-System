@@ -1,7 +1,12 @@
+package service;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+import model.InvestmentPlan;
+import model.User;
+import plan.AggressivePlan;
+import plan.ConservativePlan;
 
 public class UserService {
     private final Scanner input = new Scanner(System.in);

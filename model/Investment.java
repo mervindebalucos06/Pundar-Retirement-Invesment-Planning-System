@@ -1,3 +1,6 @@
+package model;
+
+
 public class Investment {
   private String type;
   private final double annualReturnRate;

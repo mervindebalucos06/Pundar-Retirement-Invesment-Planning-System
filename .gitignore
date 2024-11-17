@@ -1,0 +1,5 @@
+# Ignore temp directory
+temp/
+
+# Ignore class files
+*.class   

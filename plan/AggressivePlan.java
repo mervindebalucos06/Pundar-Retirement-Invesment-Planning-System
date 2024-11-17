@@ -1,3 +1,5 @@
+package plan;
+import model.InvestmentPlan;
 public class AggressivePlan extends InvestmentPlan {
   public AggressivePlan(double currentSavings, double annualContribution, int retirementAge) {
     super(currentSavings, annualContribution, retirementAge);

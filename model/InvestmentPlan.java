@@ -1,3 +1,6 @@
+
+package model;
+
 public abstract class InvestmentPlan {
   protected double currentSavings;
   protected double annualContribution;

@@ -1,3 +1,8 @@
+package plan;
+
+import model.Investment;
+import model.User;
+
 public class RetirementPlan {
   private final User user;
   private final Investment investment;
