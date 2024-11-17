@@ -21,7 +21,7 @@ public class Main {
           case 2 -> userService.login();
           case 3 -> userService.aboutUs();
           case 4 -> {
-            System.out.println("Exiting... Goodbye!");
+            System.out.println("Exiting... Thank you for using Pundar!");
             exit = true;
           }
           default -> System.out.println("Invalid choice. Please try again.");
