@@ -2,25 +2,29 @@ public class User {
   private final int userId;
   private final String name;
   private final int age;
-  private final String investmentType;
+  private final InvestmentPlan investmentPlan;
   private double currentSavings;
   private int retirementAge;
   private double annualContribution;
 
-  public User(int userId, String name, int age,String investmentType, double currentSavings, int retirementAge, double annualContribution) {
+  public User(int userId, String name, int age, InvestmentPlan investmentPlan) {
     this.userId = userId;
     this.name = name;
     this.age = age;
-    this.investmentType = investmentType;
-    this.currentSavings = currentSavings;
-    this.retirementAge = retirementAge;
-    this.annualContribution = annualContribution;
+    this.investmentPlan = investmentPlan;
+    // this.currentSavings = currentSavings;
+    // this.retirementAge = retirementAge;
+    // this.annualContribution = annualContribution;
   }
 
   //getter and setter
 
-  public String getInvestmentType() {
-    return investmentType;
+  public InvestmentPlan getInvestmentPlan() {
+    return investmentPlan;
+  }
+
+  public double getProjectedIncome(double growthRate) {
+    return investmentPlan.calculateProjectedIncome(growthRate); // polymorphic call
   }
 
   public int getUserId() {
@@ -35,7 +39,6 @@ public class User {
     this.annualContribution = annualContribution;
   }
 
-
   public void setCurrentSavings(double currentSavings) {
     this.currentSavings = currentSavings;
   }
@@ -47,11 +50,11 @@ public class User {
   public String getName() {
     return name;
   }
-  
+
   public int getRetirementAge() {
     return retirementAge;
   }
-  
+
   public double getCurrentSavings() {
     return currentSavings;
   }
@@ -60,24 +63,16 @@ public class User {
     return annualContribution;
   }
 
-  public void annualContributions(double annualContribution) {
-    if (annualContribution >= 0) {
-      this.annualContribution = annualContribution;
-    } else {
-      System.out.println("Annual contribution cannot be negative.");
-    }
-  }
-  
+  // public void annualContributions(double annualContribution) {
+  //   if (annualContribution >= 0) {
+  //     this.annualContribution = annualContribution;
+  //   } else {
+  //     System.out.println("Annual contribution cannot be negative.");
+  //   }
+  // }
+
   public double calculateProjectedIncome(double annualGrowthRate) {
-    int yearsUntilRetirement = retirementAge - age;
-    double projectedSavings = currentSavings;
-
-    for (int i = 0; i < yearsUntilRetirement; i++) {
-      projectedSavings += projectedSavings * annualGrowthRate; // Apply growth
-      projectedSavings += annualContribution; // Add annual contribution
-    }
-
-    return projectedSavings;
+    return investmentPlan.calculateProjectedIncome(annualGrowthRate);
   }
 }
 

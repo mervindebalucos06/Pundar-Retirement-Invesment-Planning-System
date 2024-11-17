@@ -13,28 +13,37 @@ public class UserService {
         String name = input.nextLine();
         System.out.print("Enter your age: ");
         int age = input.nextInt();
-        input.nextLine();  // Consume newline
-        System.out.print("Enter your investment type: ");
-        String investmentType = input.nextLine();
+        input.nextLine(); // Consume newline
         System.out.print("Enter your current savings: ");
         double savings = input.nextDouble();
-        System.out.print("Enter your retirement age: ");
-        int retirementAge = input.nextInt();
         System.out.print("Enter your annual contribution: ");
         double contribution = input.nextDouble();
-        input.nextLine();  // Consume newline
+        System.out.print("Enter your retirement age: ");
+        int retirementAge = input.nextInt();
+        input.nextLine();
 
-        User newUser = new User(userIdCounter, name, age, investmentType, savings, retirementAge, contribution);
-        userDatabase.put(userIdCounter, newUser);
-        System.out.println("Sign Up successful! Your user ID is " + userIdCounter + ". You can now log in.");
-        userIdCounter++;
+        System.out.print("Choose an investment type (1 for Conservative, 2 for Aggressive): ");
+        int planType = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        InvestmentPlan plan;
+        if (planType == 1) {
+            plan = new ConservativePlan(savings, contribution, retirementAge);
+        } else {
+            plan = new AggressivePlan(savings, contribution, retirementAge);
+        }
+
+        User newUser = new User(userIdCounter++, name, age, plan); // Polymorphic association
+        userDatabase.put(newUser.getUserId(), newUser);
+
+        System.out.println("Sign Up successful! You can now log in.");
     }
 
     public void login() {
         System.out.println("=== Login ===");
         System.out.print("Enter your user ID: ");
         int userId = input.nextInt();
-        input.nextLine();  // Consume newline
+        input.nextLine(); // Consume newline
 
         User user = userDatabase.get(userId);
         if (user != null) {
@@ -50,13 +59,12 @@ public class UserService {
         while (!exit) {
             System.out.println("\n=== Your Retirement Plan ===");
             System.out.println("1. View Retirement Details");
-            //add System.out.println("2. Add New Investment Type")
             System.out.println("2. Update Retirement Plan");
             System.out.println("3. Logout");
             System.out.print("Choose an option: ");
 
             int choice = input.nextInt();
-            input.nextLine();  // Consume newline
+            input.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1 -> viewRetirementDetails(user);
@@ -68,13 +76,13 @@ public class UserService {
     }
 
     private void viewRetirementDetails(User user) {
+        InvestmentPlan investmentPlan = user.getInvestmentPlan();
         System.out.println("\n=== Retirement Details ===");
         System.out.println("Name: " + user.getName());
         System.out.println("Age: " + user.getAge());
-        System.out.println("Investment Type: " + user.getInvestmentType());
-        System.out.println("Current Savings: $" + user.getCurrentSavings());
-        System.out.println("Retirement Age: " + user.getRetirementAge());
-        System.out.println("Annual Contribution: $" + user.getAnnualContribution());
+        System.out.println("Current Savings: $" + investmentPlan.getCurrentSavings());
+        System.out.println("Retirement Age: " + investmentPlan.getRetirementAge());
+        System.out.println("Annual Contribution: $" + investmentPlan.getAnnualContribution());
         double projectedIncome = user.calculateProjectedIncome(0.05);
         System.out.printf("Projected Income at Retirement: $%.2f\n", projectedIncome);
     }
@@ -87,11 +95,12 @@ public class UserService {
         double newContribution = input.nextDouble();
         System.out.print("Enter new retirement age: ");
         int newRetirementAge = input.nextInt();
-        input.nextLine();  // Consume newline
+        input.nextLine(); // Consume newline
 
-        user.setCurrentSavings(newSavings);
-        user.setAnnualContribution(newContribution);
-        user.setRetirementAge(newRetirementAge);
+        InvestmentPlan plan = user.getInvestmentPlan();
+        plan.setCurrentSavings(newSavings);
+        plan.setAnnualContribution(newContribution);
+        plan.setRetirementAge(newRetirementAge);
         System.out.println("Your retirement plan has been updated successfully.");
     }
 
