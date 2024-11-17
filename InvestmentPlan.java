@@ -43,5 +43,4 @@ public abstract class InvestmentPlan {
   public void setRetirementAge(int retirementAge) {
     this.retirementAge = retirementAge;
   }
-
 }
