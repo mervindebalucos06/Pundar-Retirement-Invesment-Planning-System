@@ -1,6 +1,6 @@
 
 import java.util.Scanner;
-import  service.UserService;
+import src.service.UserService;
 
 public class Main {
   public static void main(String[] args) {
@@ -9,7 +9,7 @@ public class Main {
 
     try (Scanner input = new Scanner(System.in)) { // Use try-with-resources for Scanner
       while (!exit) {
-        System.out.println("\n=== Retirement Investment Planning System ===");
+        System.out.println("\n=== Pundar: Retirement Investment Planning System ===");
         System.out.println("1. Sign Up");
         System.out.println("2. Login");
         System.out.println("3. About Us");

@@ -1,5 +1,5 @@
 
-package model;
+package src.model;
 
 public abstract class InvestmentPlan {
   protected double currentSavings;

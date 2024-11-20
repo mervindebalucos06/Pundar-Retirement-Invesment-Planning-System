@@ -1,6 +1,6 @@
-package plan;
+package src.plan;
 
-import model.InvestmentPlan;
+import src.model.InvestmentPlan;
 
 public class ConservativePlan extends InvestmentPlan {
   public ConservativePlan(double currentSavings, double annualContribution, int retirementAge) {

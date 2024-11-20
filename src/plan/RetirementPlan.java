@@ -1,7 +1,7 @@
-package plan;
+package src.plan;
 
-import model.Investment;
-import model.User;
+import src.model.Investment;
+import src.model.User;
 
 public class RetirementPlan {
   private final User user;
