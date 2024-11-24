@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
-
 import src.model.InvestmentPlan;
 import src.model.User;
 import src.plan.AggressivePlan;
@@ -19,44 +18,49 @@ public class UserService {
         try {
             System.out.print("Enter your name: ");
             String name = input.nextLine();
-
-            int age = promptForInt("Enter your age: ", 1, 120);
-            double savings = promptForDouble("Enter your current savings: ", 0, Double.MAX_VALUE);
-            double contribution = promptForDouble("Enter your annual contribution: ", 0, Double.MAX_VALUE);
-            int retirementAge = promptForInt("Enter your retirement age: ", age + 1, 120);
-
-            System.out.print("Choose an investment type (1 for Conservative, 2 for Aggressive): ");
-            int planType = input.nextInt();
-            input.nextLine(); // Consume newline
-
-            InvestmentPlan plan;
-            switch (planType) {
-                case 1 -> plan = new ConservativePlan(savings, contribution, retirementAge);
-                case 2 -> plan = new AggressivePlan(savings, contribution, retirementAge);
-                default -> throw new IllegalArgumentException("Invalid investment type. Choose 1 or 2.");
+    
+            System.out.print("Enter a password (must be more than 8 characters): ");
+            String password = input.nextLine();
+            while (password.length() <= 8) {
+                System.out.println("Password too short! Please enter a password with more than 8 characters.");
+                System.out.print("Enter a password: ");
+                password = input.nextLine();
             }
-
-            User newUser = new User(userIdCounter++, name, age, plan);
+    
+            int age = promptForInt("Enter your age: ", 18, 120); // Prompt for age (e.g., min 18 for eligibility)
+    
+            User newUser = new User(userIdCounter++, name, password, age);
             userDatabase.put(newUser.getUserId(), newUser);
+    
+            System.out.println("Sign Up successful! Your User ID is: " + newUser.getUserId());
+            System.out.println("Please keep your User ID secure. You will need it to log in.");
 
-            System.out.println("Sign Up successful! You can now log in.");
         } catch (InputMismatchException e) {
             System.out.println("Invalid input! Please try again.");
             input.nextLine(); // Clear invalid input
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
         }
     }
+    
+    
+
 
     public void login() {
         System.out.println("=== Login ===");
         try {
             int userId = promptForInt("Enter your user ID: ", 1, Integer.MAX_VALUE);
-
+            input.nextLine(); // Clear the newline character from the buffer
+    
             User user = userDatabase.get(userId);
             if (user != null) {
-                System.out.println("Welcome, " + user.getName() + "!");
-                showUserRetirementPlan(user);
+                System.out.print("Enter your password: ");
+                String password = input.nextLine();
+    
+                if (user.getPassword().equals(password)) {
+                    System.out.println("Login successful! Welcome, " + user.getName() + "!");
+                    showUserRetirementPlan(user);
+                } else {
+                    System.out.println("Incorrect password. Please try again.");
+                }
             } else {
                 System.out.println("User not found. Please sign up first.");
             }
@@ -65,24 +69,27 @@ public class UserService {
             input.nextLine(); // Clear invalid input
         }
     }
+    
 
     public void showUserRetirementPlan(User user) {
         boolean exit = false;
         while (!exit) {
             try {
                 System.out.println("\n=== Your Retirement Plan ===");
-                System.out.println("1. View Retirement Details");
-                System.out.println("2. Update Retirement Plan");
-                System.out.println("3. Logout");
+                System.out.println("1. Add Retirement Details");
+                System.out.println("2. View Retirement Details");
+                System.out.println("3. Update Retirement Plan");
+                System.out.println("4. Logout");
                 System.out.print("Choose an option: ");
 
                 int choice = input.nextInt();
                 input.nextLine(); // Consume newline
 
                 switch (choice) {
-                    case 1 -> viewRetirementDetails(user);
-                    case 2 -> updateRetirementPlan(user);
-                    case 3 -> exit = true;
+                    case 1 -> addRetirementDetails(user.getUserId());
+                    case 2 -> viewRetirementDetails(user);
+                    case 3 -> updateRetirementPlan(user);
+                    case 4 -> exit = true;
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
             } catch (InputMismatchException e) {
@@ -91,6 +98,43 @@ public class UserService {
             }
         }
     }
+
+    public void addRetirementDetails(int userId) {
+        System.out.println("=== Add Retirement Details ===");
+        try {
+            User user = userDatabase.get(userId);
+            if (user != null) {
+                double savings = promptForDouble("Enter your current savings: ", 0, Double.MAX_VALUE);
+    
+                double contribution = promptForDouble("Enter your annual contribution: ", 0, Double.MAX_VALUE);
+    
+                int retirementAge = promptForInt("Enter your retirement age: ", user.getAge() + 1, 120);
+    
+                System.out.print("Choose an investment type (1 for Conservative, 2 for Aggressive): ");
+                int planType = input.nextInt();
+                input.nextLine(); // Clear newline
+    
+                InvestmentPlan plan;
+                switch (planType) {
+                    case 1 -> plan = new ConservativePlan(savings, contribution, retirementAge);
+                    case 2 -> plan = new AggressivePlan(savings, contribution, retirementAge);
+                    default -> throw new IllegalArgumentException("Invalid investment type. Choose 1 or 2.");
+                }
+    
+                user.setInvestmentPlan(plan);
+                System.out.println("Retirement details successfully added!");
+            } else {
+                System.out.println("User not found. Please sign up first.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! Please try again.");
+            input.nextLine(); // Clear invalid input
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+
 
     private void viewRetirementDetails(User user) {
         InvestmentPlan investmentPlan = user.getInvestmentPlan();
