@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import src.service.UserService;
 
